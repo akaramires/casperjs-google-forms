@@ -8,7 +8,7 @@ var options = {
 }
 };
 
-var credentials = require('credentials.json');
+var credentials = require('./credentials.json');
 
 var system = require('system');
 var casper = require('casper').create(options);
@@ -85,7 +85,7 @@ casper.on( 'page.initialized', function(){
   });
 });
 
-console.log("1 - Opening the login page ...");
+console.log("1 - Opening the login page");
 
 casper.start('https://accounts.google.com/Login?hl=EN', function() {
   console.log("Success!");
