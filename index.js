@@ -18,24 +18,24 @@ if (system.args.length < 8) {
 }
 
 var COLORS = {
-  red:         { x: 666, y: 106, color: '#DB4437'},
-  pink:        { x: 666, y: 170, color: '#E91E63'},
-  purple:      { x: 666, y: 234, color: '#9C27B0'},
-  deep_purple: { x: 666, y: 298, color: '#673AB7'},
+  red:         { x: 663, y: 104, color: '#DB4437'},
+  pink:        { x: 730, y: 104, color: '#E91E63'},
+  purple:      { x: 797, y: 104, color: '#9C27B0'},
+  deep_purple: { x: 864, y: 104, color: '#673AB7'},
   
-  indigo:      { x: 732, y: 106, color: '#3F51B5'},
-  blue:        { x: 732, y: 170, color: '#4285F4'},
-  light_blue:  { x: 732, y: 234, color: '#03A9F4'},
-  cyan:        { x: 732, y: 298, color: '#00BCD4'},
+  indigo:      { x: 663, y: 175, color: '#3F51B5'},
+  blue:        { x: 730, y: 175, color: '#4285F4'},
+  light_blue:  { x: 797, y: 175, color: '#03A9F4'},
+  cyan:        { x: 732, y: 175, color: '#00BCD4'},
   
-  teal:        { x: 798, y: 106, color: '#009688'},
-  green:       { x: 798, y: 170, color: '#0F9D58'},
-  lime:        { x: 798, y: 234, color: '#CDDC39'},
-  orange:      { x: 798, y: 298, color: '#FF9800'},
+  teal:        { x: 663, y: 242, color: '#009688'},
+  green:       { x: 730, y: 242, color: '#0F9D58'},
+  lime:        { x: 797, y: 242, color: '#CDDC39'},
+  orange:      { x: 798, y: 242, color: '#FF9800'},
   
-  brown:       { x: 864, y: 106, color: '#795548'},
-  grey:        { x: 864, y: 170, color: '#9E9E9E'},
-  blue_grey:   { x: 864, y: 234, color: '#607D8B'}
+  brown:       { x: 663, y: 310, color: '#795548'},
+  grey:        { x: 730, y: 310, color: '#9E9E9E'},
+  blue_grey:   { x: 797, y: 310, color: '#607D8B'}
 };
 
 var email = system.args[4];
