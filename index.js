@@ -5,15 +5,17 @@ var options = {
   "loadImages": false,
   "loadPlugins": false,
   "javascriptEnabled": true
-},
+}
 };
+
+var credentials = require('credentials.json');
 
 var system = require('system');
 var casper = require('casper').create(options);
 var mouse = require("mouse").create(casper);
 
-if (system.args.length < 8) {
-  casper.echo("Email, password, formId, color must be passed.");
+if (system.args.length < 6) {
+  casper.echo("FormId and color must be passed.");
   casper.exit();
 }
 
@@ -38,15 +40,8 @@ var COLORS = {
   blue_grey:   { x: 797, y: 310, color: '#607D8B'}
 };
 
-var email = system.args[4];
-var password = system.args[5];
-var formId = system.args[6];
-var color = COLORS[system.args[7]];
-
-casper.logAndCapture = function(text) {
-  console.log(text);
-  casper.captureSelector('screenshots/' + text + '.jpg', 'body');
-};
+var formId = system.args[4];
+var color = COLORS[system.args[5]];
 
 casper.on("page.error", function(msg, trace) {
   this.echo("Page Error: " + msg, "ERROR");
@@ -90,53 +85,51 @@ casper.on( 'page.initialized', function(){
   });
 });
 
+console.log("1 - Opening the login page ...");
+
 casper.start('https://accounts.google.com/Login?hl=EN', function() {
-  casper.logAndCapture("1 - page opened");
+  console.log("Success!");
+  console.log('2 - Authentification ...');
 
   this.fillSelectors('form#gaia_loginform', {
-    'input[name="Email"]': email,
+    'input[name="Email"]': credentials.email,
   }); 
-
-  casper.logAndCapture('2 - email filled');
 
   this.click("#next");
 
-  this.wait(3000, function() {
+  this.wait(500, function() {
     this.waitForSelector("#Passwd",
       function success() {
-        casper.logAndCapture('3 - show password field');
-
         this.fillSelectors('form#gaia_loginform', {
-          'input[name="Passwd"]': password,
+          'input[name="Passwd"]': credentials.password,
         });
-
-        casper.logAndCapture('4 - password filled');
 
         this.click("#signIn"); 
 
         this.wait(5000, function() {
-          casper.logAndCapture('5 - logged in');
-
-          casper.thenOpen('https://docs.google.com/forms/u/0/d/' + formId + '/edit', function() { 
-            casper.logAndCapture("6 - form opened");
-            this.click('.freebirdFormeditorViewHeaderThemeButton');
-
-            this.wait(500, function() {
-              casper.logAndCapture("7 - pallete opened");
-
-              this.wait(500, function() {
-                casper.mouse.click(color.x, color.y); 
-
-                this.wait(1000, function() {
-                  casper.logAndCapture("8 - color changed");
-                });
-              });
-            });
-          });
+          console.log('Success!');
+          console.log('3 - Opening the form ...');
         });
       }, function fail() {
         console.log("FAIL...");
       });
+  });
+});
+
+casper.thenOpen('https://docs.google.com/forms/u/0/d/' + formId + '/edit', function() { 
+  console.log("Success!");
+  console.log("4 - Changing the color...");
+
+  this.wait(500, function() {
+    this.click('.freebirdFormeditorViewHeaderThemeButton');
+
+    this.wait(500, function() {
+      casper.mouse.click(color.x, color.y); 
+
+      this.wait(1000, function() {
+       console.log("Success!");
+     });
+    });
   });
 });
 
